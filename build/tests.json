@@ -1,6 +1,6 @@
 {
   "contracts": {
-    "BZxFlashLoaner": "28db3fb1387598ab50c78b1b6524c59d8756a4bf"
+    "BZxFlashLoaner": "bca6196146b0e6f4dc49b4371c29ab08a6bdb2e8"
   },
   "tests": {
     "tests/test_flashloan.py": {

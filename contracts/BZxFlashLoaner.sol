@@ -103,7 +103,7 @@ contract BZxFlashLoaner is Ownable {
             srcToken,
             srcQty,
             destToken,
-            0
+            minRate
         );
         // require(destToken.transfer(destAddress, destAmount));
     }
@@ -123,19 +123,19 @@ contract BZxFlashLoaner is Ownable {
         uint256 minRate;
         (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(loanToken), ERC20(USDC), loanAmount);
         uint256 destAmount = KYBER_PROXY.swapTokenToToken(
-            ERC20(loanToken),
+            ERC20(USDC),
             loanAmount,
+            ERC20(loanToken), 
+            0
+        );
+
+        (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(USDC), ERC20(loanToken), destAmount);
+        destAmount = KYBER_PROXY.swapTokenToToken(
+            ERC20(loanToken),
+            destAmount,
             ERC20(USDC),
             minRate
         );
-
-        // (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(USDC), ERC20(loanToken), destAmount);
-        // destAmount = KYBER_PROXY.swapTokenToToken(
-        //     ERC20(loanToken),
-        //     destAmount,
-        //     ERC20(USDC),
-        //     minRate
-        // );
 
         emit BalanceOf(IERC20(USDC).balanceOf(address(this)), "USDC");
 
