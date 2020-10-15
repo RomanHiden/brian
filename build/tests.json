@@ -1,13 +1,13 @@
 {
   "contracts": {
-    "BZxFlashLoaner": "bca6196146b0e6f4dc49b4371c29ab08a6bdb2e8"
+    "BZxFlashLoaner": "061a0ab40a608fa4b73de0e870caa90720d5301a"
   },
   "tests": {
     "tests/test_flashloan.py": {
       "coverage": false,
       "isolated": false,
       "results": "F",
-      "sha1": "e0a6a8f13767e74abde2cb507566c4b2f460c44c",
+      "sha1": "c3496d4303755468fec1612fe881725889478610",
       "txhash": []
     }
   },

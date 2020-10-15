@@ -47,21 +47,38 @@ def KYBER():
 
 def testLoaner(accounts, requireMainnetFork, flashLoaner, iDAI, DAI, USDC, KYBER):
     print("flashLoaner.address", flashLoaner.address)
-    tx1 = flashLoaner.swapEtherToToken(USDC.address, flashLoaner.address, {
-                             'from': accounts[0], 'value': 10000000000000000000})
+    # tx1 = flashLoaner.swapEtherToToken(USDC.address, accounts[0], {
+    #                          'from': accounts[0], 'value': Wei('1 ether')})
     
-    # tx2 = flashLoaner.swapEtherToToken(DAI.address, accounts[0], {
-                            #  'from': accounts[0], 'value': 10000000000000000000})
+    # tx2 = flashLoaner.swapEtherToToken(DAI.address,flashLoaner.address, {
+    #                          'from': accounts[0], 'value': 10000000000000000000})
 
         
+    # I need below DAI on flashLoaner.address to cover overall net loss due to commision etc.
     tx3 = flashLoaner.swapEtherToToken(DAI.address, flashLoaner.address, {
-                             'from': accounts[0], 'value': 10000000000000000000})
+                             'from': accounts[0], 'value': Wei('1 ether')})
 
-    print("balanceOf", USDC.balanceOf(flashLoaner.address))
+    # print("balanceOf", USDC.balanceOf(flashLoaner.address))
     # print("balanceOf", DAI.balanceOf(accounts[0]))
-    print("balanceOf", DAI.balanceOf(flashLoaner.address))
+    # print("balanceOf", DAI.balanceOf(flashLoaner.address))
 
 
+
+    # USDC.approve(KYBER.address, 99999999999999999999999999999999999999999, {'from': accounts[0]})
+    # DAI.approve(KYBER.address, 99999999999999999999999999999999999999999, {'from': accounts[0]})
+    
+    
+    # asdf = KYBER.getExpectedRate(DAI, USDC, 100000000000000000);
+    # print("asdf", asdf)
+    # tx = KYBER.swapTokenToToken(
+    #     DAI,
+    #     100000000000000000,
+    #     USDC,
+    #     asdf[1],
+    #     {'from': accounts[0]}
+    # )
+
+    # I am passing amount without precision e.g 100$, please not I am requesting flash loan more than I have on the account by tx3
     tx = flashLoaner.doStuffWithFlashLoan(DAI.address, iDAI.address, 1000, {'from': accounts[0]})
     
     tx.info()

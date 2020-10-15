@@ -117,30 +117,33 @@ contract BZxFlashLoaner is Ownable {
         /////////////////////////////////////////////////////
 
         emit BalanceOf(IERC20(USDC).balanceOf(address(this)), "USDC");
+        emit BalanceOf(IERC20(loanToken).balanceOf(address(this)), "loan");
         ERC20(USDC).approve(address(KYBER_PROXY), uint(-1));
         ERC20(loanToken).approve(address(KYBER_PROXY), uint(-1));
 
         uint256 minRate;
-        (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(loanToken), ERC20(USDC), loanAmount);
+        uint256 amount = loanAmount * 10**18;
+        (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(loanToken), ERC20(USDC), amount);
         uint256 destAmount = KYBER_PROXY.swapTokenToToken(
-            ERC20(USDC),
-            loanAmount,
-            ERC20(loanToken), 
-            0
-        );
-
-        (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(USDC), ERC20(loanToken), destAmount);
-        destAmount = KYBER_PROXY.swapTokenToToken(
             ERC20(loanToken),
-            destAmount,
+            amount,
             ERC20(USDC),
             minRate
         );
 
-        emit BalanceOf(IERC20(USDC).balanceOf(address(this)), "USDC");
+        amount = loanAmount * 10**6;
+        (, minRate) = KYBER_PROXY.getExpectedRate(ERC20(USDC), ERC20(loanToken), amount);
+        destAmount = KYBER_PROXY.swapTokenToToken(
+            ERC20(USDC),
+            amount,
+            ERC20(loanToken),
+            minRate
+        );
 
+        emit BalanceOf(IERC20(USDC).balanceOf(address(this)), "USDC");
+        emit BalanceOf(IERC20(loanToken).balanceOf(address(this)), "loan");
         /////////////////////////////////////////////////////
-        repayFlashLoan(loanToken, iToken, loanAmount);
+        repayFlashLoan(loanToken, iToken, loanAmount* 10**18);
         return bytes("1");
     }
 
@@ -188,7 +191,7 @@ contract BZxFlashLoaner is Ownable {
         IToken iTokenContract = IToken(iToken);
         return
             iTokenContract.flashBorrow(
-                flashLoanAmount,
+                flashLoanAmount * 10**18,
                 address(this),
                 address(this),
                 "",
