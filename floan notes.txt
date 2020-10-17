@@ -1,0 +1,62 @@
+#create object for the contract
+bzx = BZxFlashLoaner.deploy({'from':accounts[0]})
+
+# this is a standard flash loan
+tx = bzx.doStuffWithFlashLoan("0x6b175474e89094c44da98b954eedeac495271d0f", "0x6b093998d36f2c7f0cc359441fbb24cc629d5ff0", 100000000000000000000, {'from': accounts[0]})
+
+
+########kyber proxy and getExpectedRate code####################
+    IKyber public KYBER_PROXY = IKyber(0x9AAb3f75489902f3a48495025729a0AF77d4b11e);
+
+    function getRate(ERC20 srcToken, ERC20 destToken, uint256 srcQty) public returns (uint256){
+        uint256 expected;
+        uint256 slippage;
+        (expected, slippage) = KYBER_PROXY.getExpectedRate(srcToken, destToken, srcQty);
+        return slippage;
+    }
+###############################################################	
+
+## call kyber getExpectedRate
+tx = bzx.getRate("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","0x6b175474e89094c44da98b954eedeac495271d0f",  100000000000000000000,{'from':accounts[0]})	
+## return the value of the transaction (the actual rate)
+tx.return_value
+
+#########kyber proxy swap ether to token code####################
+    IKyber public KYBER_PROXY = IKyber(0x9AAb3f75489902f3a48495025729a0AF77d4b11e);
+    ERC20 constant public ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
+    function swapEtherToToken (ERC20 token, address destAddress) public payable {
+        uint minRate;
+        (, minRate) = KYBER_PROXY.getExpectedRate(ETH_TOKEN_ADDRESS, token, msg.value);
+        uint destAmount = KYBER_PROXY.swapEtherToToken.value(msg.value)(token, minRate);
+        require(token.transfer(destAddress, destAmount));
+    }
+################################################################	
+
+
+## swap ether to dai
+tx = bzx.swapEtherToToken("0x6b175474e89094c44da98b954eedeac495271d0f", accounts[0], {'from':accounts[0], 'value':10000000000000000000})
+## create dai contract object so we can check balances
+dai = Contract.from_explorer("0x6b175474e89094c44da98b954eedeac495271d0f")
+## verify dai balance and ether balance
+dai.balanceOf(accounts[0])
+usdc.balanceOf(accounts[0])
+accounts[0].balance()
+
+history[-1].call_trace()
+
+##approval
+	tx = dai.approve(bzx.address, 100000000000000000000000000000000000,{'from':accounts[0]})
+	tx = usdc.approve(bzx.address, 100000000000000000000000000000000000,{'from':accounts[0]})
+	
+	
+22222221111111110000000000
+65432109876543210987654321
+
+
+def loadContractFromEtherscan(address, alias):
+    try:
+        return Contract(alias)
+    except ValueError:
+        contract = Contract.from_explorer(address)
+        contract.set_alias(alias)
+        return contract
