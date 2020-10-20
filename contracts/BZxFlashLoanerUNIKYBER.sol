@@ -191,7 +191,7 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
 
     IKyber public KYBER_PROXY = IKyber(0x9AAb3f75489902f3a48495025729a0AF77d4b11e);
     address payable internal uniswapV2_routerAddress = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
-    uint constant MAX_UINT = 2**256 - 1;
+    uint256 constant MAX_UINT = 2**256 - 1;
     address public constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
     IUniswapV2Router uniV2_routerinterface = IUniswapV2Router(uniswapV2_routerAddress);
     ILendingPool lendingPool;
@@ -202,34 +202,26 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
 
 
 
-
-
-
-
-
-
-
-
-
-
     function isETH(IERC20 token) internal pure returns(bool) {
         return (address(token) == address(ZERO_ADDRESS) || address(token) == address(ETH_ADDRESS));
     }
 
-    function liquidateTarget(address collateral, address liquReserve, address user) public {
-        lendingPool = ILendingPool(addressesProvider.getLendingPool());   // get lending pool contract address from the lending pool address provider interface
-        IERC20(liquReserve).approve(addressesProvider.getLendingPoolCore(), liquAmount); // approve lending pool core to spend the reserve asset
-
+    function liquidateTarget(address collateral, address liquReserve, address user, uint256 liquAmount) public {
         bool getToken = false;
-        liquAmount = uint(-1);
+        lendingPool = ILendingPool(addressesProvider.getLendingPool());   // get lending pool contract address from the lending pool address provider interface
 
         if(isETH(IERC20(liquReserve))){
+          emit LiquidationLog(lendingPool, collateral, liquReserve, user, liquAmount);
           lendingPool.liquidationCall.value(liquAmount)(collateral, liquReserve, user, liquAmount, getToken );
         } else {
-          IERC20(liquReserve).approve(addressesProvider.getLendingPoolCore(), liquAmount);
-          lendingPool.liquidationCall(collateral, liquReserve, user, liquAmount, getToken );
+          emit LiquidationLog(lendingPool, collateral, liquReserve, user, MAX_UINT);
+          IERC20(liquReserve).approve(addressesProvider.getLendingPoolCore(), MAX_UINT);
+          lendingPool.liquidationCall(collateral, liquReserve, user, MAX_UINT, getToken );
         }
     }
+
+
+
 
     function executeOperation(address loanToken, address iToken, uint256 loanAmount ) external returns (bytes memory success) {
         address collateralToken = address(USDC);
@@ -253,19 +245,6 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
         //emit BalanceOf(IERC20(loanToken).balanceOf(address(this)), "loan token after repayment in executeOperation");
         return bytes("1");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     function priceCheck(address srcToken, address dstToken, uint256 amount) public returns (string memory success) {
@@ -365,6 +344,7 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
         uint256 loanAmount
     );
 
+    event LiquidationLog(ILendingPool lendingPool, address collateral, address liquReserve, address user, uint256 liquAmount);
     event PriceCheck(uint256 rate1, uint256 rate2, string  name);
     event BalanceOf(uint256 balance, string  name);
     event paramsLog(
