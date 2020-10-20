@@ -69,4 +69,4 @@ def test_liquidation():
 
         tx.info()
 
-        assert false
+        assert False

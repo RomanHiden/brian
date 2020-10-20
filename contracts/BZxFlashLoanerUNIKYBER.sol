@@ -195,7 +195,8 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
     address public constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
     IUniswapV2Router uniV2_routerinterface = IUniswapV2Router(uniswapV2_routerAddress);
     ILendingPool lendingPool;
-    ILendingPoolAddressesProvider addressesProvider;
+    // ILendingPoolAddressesProvider addressesProvider;
+    ILendingPoolAddressesProvider addressesProvider = ILendingPoolAddressesProvider(address(0x24a42fD28C976A61Df5D00D0599C34c4f90748c8));
 
     IERC20 private constant ZERO_ADDRESS = IERC20(0x0000000000000000000000000000000000000000);
     IERC20 private constant ETH_ADDRESS = IERC20(0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE);
