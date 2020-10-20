@@ -35,10 +35,7 @@ def test_liquidation():
 
 	aave, aavelpc, bat, lend, link, yfi, tusd, wbtc = (Contract.from_explorer("0x398eC7346DcD622eDc5ae82352F02bE94C62d119"),Contract.from_explorer("0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3"),Contract.from_explorer("0x0D8775F648430679A709E98d2b0Cb6250d2887EF"),Contract.from_explorer("0x80fB784B7eD66730e8b1DBd9820aFD29931aab03"),Contract.from_explorer("0x514910771AF9Ca656af840dff83E8264EcF986CA"),Contract.from_explorer("0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e"),Contract.from_explorer("0x0000000000085d4780B73119b644AE5ecd22b376"),Contract.from_explorer("0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"))
 
-	bzx.swapEtherToToken(lend, accounts[0], {'from':accounts[0], 'value':10000000000000000000})
-
-
-	bzx.swapEtherToToken(lend, accounts[0], {'from':accounts[0], 'value':10000000000000000000})
+	bzx.swapEtherToToken(link, accounts[0], {'from':accounts[0], 'value':10000000000000000000})
 	(lend.approve(bzx, 100000000000000000000000000000000000,{'from':accounts[0]}), link.approve(bzx, 100000000000000000000000000000000000,{'from':accounts[0]}))
 
 	bzx.swapEtherToToken(lend, accounts[0], {'from':accounts[0], 'value':20000000000000000000})

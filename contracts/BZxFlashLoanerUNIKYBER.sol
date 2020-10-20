@@ -216,9 +216,13 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
         return (address(token) == address(ZERO_ADDRESS) || address(token) == address(ETH_ADDRESS));
     }
 
-    function liquidateTarget(address collateral, address liquReserve, address user, uint256 liquAmount, bool getToken) public {
+    function liquidateTarget(address collateral, address liquReserve, address user) public {
         lendingPool = ILendingPool(addressesProvider.getLendingPool());   // get lending pool contract address from the lending pool address provider interface
         IERC20(liquReserve).approve(addressesProvider.getLendingPoolCore(), liquAmount); // approve lending pool core to spend the reserve asset
+
+        bool getToken = false;
+        liquAmount = uint(-1);
+
         if(isETH(IERC20(liquReserve))){
           lendingPool.liquidationCall.value(liquAmount)(collateral, liquReserve, user, liquAmount, getToken );
         } else {
@@ -261,7 +265,7 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
 
 
 
-    
+
 
 
     function priceCheck(address srcToken, address dstToken, uint256 amount) public returns (string memory success) {

@@ -7,7 +7,9 @@ def function_liq():
 	bzx.liquidateTarget(usdc, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xC838f28721367B659553aB28eEc0234372878E7f", 8799998091429335/2, True, {'from':accounts[0]})
 	bzx.liquidateTarget(dai, wbtc , "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 19814/2, True, {'from':accounts[0]})
 	bzx.liquidateTarget(dai, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" , "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 9053910634070897/2, True, {'from':accounts[0]})
-	bzx.liquidateTarget("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03", "0x0188dfac3d412333eddcb98305fa40538f9df472", 58962355270574968, True, {'from':accounts[0]})
+	
+	bzx.liquidateTarget("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03", "0x0188dfac3d412333eddcb98305fa40538f9df472", 117924687811759918, True, {'from':accounts[0]})
+	
 	bzx.liquidateTarget("0x6B175474E89094C44Da98b954EedeAC495271d0F", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 4526975336173980, True, {'from':accounts[0]})
 	
 	
