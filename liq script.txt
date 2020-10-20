@@ -1,0 +1,24 @@
+def function_liq():	
+	bzx.liquidateTarget(yfi, dai , "0xBE81f340673dd520d83F12b24F3e9230c38b4110", 30544811635865335189/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(bat, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x6cf4E3764b4e295D58F90E6CfceA2B3144f2Bdbd", 3845952574876303/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(link, lend, "0x7f3a19729165Ce5Bc7E902E18C7f85Dd83D84D00", 965772980585281893/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(lend, wbtc, "0x06fa3404ae5C42b085b2F9a4A339A8134D7a97d7",7846/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(dai, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x7d2C6809BAD2C3777327C7ba9d5E1e5d20a27Fd9", 1505091568309531/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(usdc, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xC838f28721367B659553aB28eEc0234372878E7f", 8799998091429335/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(dai, wbtc , "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 19814/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget(dai, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" , "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 9053910634070897/2, True, {'from':accounts[0]})
+	bzx.liquidateTarget("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03", "0x0188dfac3d412333eddcb98305fa40538f9df472", 58962355270574968, True, {'from':accounts[0]})
+	bzx.liquidateTarget("0x6B175474E89094C44Da98b954EedeAC495271d0F", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 4526975336173980, True, {'from':accounts[0]})
+	
+	
+def function_liq():	
+	aave.liquidationCall(yfi, dai , "0xBE81f340673dd520d83F12b24F3e9230c38b4110", 30544811635865335189/2, True, {'from':accounts[0]})
+	aave.liquidationCall(bat, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x6cf4E3764b4e295D58F90E6CfceA2B3144f2Bdbd", 3845952574876303/2, True, {'from':accounts[0]})
+	aave.liquidationCall(link, lend, "0x7f3a19729165Ce5Bc7E902E18C7f85Dd83D84D00", 965772980585281893/2, True, {'from':accounts[0]})
+	aave.liquidationCall(lend, wbtc, "0x06fa3404ae5C42b085b2F9a4A339A8134D7a97d7",7846/2, True, {'from':accounts[0]})
+	aave.liquidationCall(dai, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x7d2C6809BAD2C3777327C7ba9d5E1e5d20a27Fd9", 1505091568309531/2, True, {'from':accounts[0]})
+	aave.liquidationCall(usdc, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xC838f28721367B659553aB28eEc0234372878E7f", 8799998091429335/2, True, {'from':accounts[0]})
+	aave.liquidationCall(dai, wbtc , "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 19814/2, True, {'from':accounts[0]})
+	aave.liquidationCall(dai, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" , "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 9053910634070897/2, True, {'from':accounts[0]})
+	aave.liquidationCall("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03", "0x0188dfac3d412333eddcb98305fa40538f9df472", 58962355270574968, True, {'from':accounts[0]})
+	aave.liquidationCall("0x6B175474E89094C44Da98b954EedeAC495271d0F", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x12d8bBbc8C5AC5675d29694def3497ef83615F45", 4526975336173980, True, {'from':accounts[0]})	
