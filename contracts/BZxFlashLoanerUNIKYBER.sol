@@ -202,20 +202,29 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
 
 
 
+    event LiquidationLog(ILendingPool lendingPool, address collateral, address liquReserve, address user, uint256 liquAmount);
+    // check if a reserve asset matches the ETH_ADDRESS address
     function isETH(IERC20 token) internal pure returns(bool) {
         return (address(token) == address(ZERO_ADDRESS) || address(token) == address(ETH_ADDRESS));
     }
 
+
+
     function liquidateTarget(address collateral, address liquReserve, address user, uint256 liquAmount) public {
-        bool getToken = false;
+        bool getToken = false; // statically set the receive aToken value to false
         lendingPool = ILendingPool(addressesProvider.getLendingPool());   // get lending pool contract address from the lending pool address provider interface
 
+        // if the reserve asset is ETH:
         if(isETH(IERC20(liquReserve))){
           emit LiquidationLog(lendingPool, collateral, liquReserve, user, liquAmount);
+          // call the lending pool liquidation contract with parameters
           lendingPool.liquidationCall.value(liquAmount)(collateral, liquReserve, user, liquAmount, getToken );
+        // if the reserve asset is an ERC20:
         } else {
           emit LiquidationLog(lendingPool, collateral, liquReserve, user, MAX_UINT);
-          IERC20(liquReserve).approve(addressesProvider.getLendingPoolCore(), MAX_UINT);
+          // aave docs say you can send uint(-1) as the purchase amount to automatically liquidate the maximum allowed
+          IERC20(liquReserve).approve(addressesProvider.getLendingPoolCore(), MAX_UINT); // approve reserve asset
+          // call the lending pool liquidation contract with parameters
           lendingPool.liquidationCall(collateral, liquReserve, user, MAX_UINT, getToken );
         }
     }
@@ -344,7 +353,7 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
         uint256 loanAmount
     );
 
-    event LiquidationLog(ILendingPool lendingPool, address collateral, address liquReserve, address user, uint256 liquAmount);
+
     event PriceCheck(uint256 rate1, uint256 rate2, string  name);
     event BalanceOf(uint256 balance, string  name);
     event paramsLog(
