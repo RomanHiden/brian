@@ -26,8 +26,6 @@ def test_liquidation():
         # usrrvdata2 = aave.getUserReserveData("0x514910771AF9Ca656af840dff83E8264EcF986CA", "0xd1F560e0CdB488CD0F646642b3247136ff12FA10")
 
         tx = bzx.liquidateTarget('0x6B175474E89094C44Da98b954EedeAC495271d0F','0x514910771AF9Ca656af840dff83E8264EcF986CA','0xd1F560e0CdB488CD0F646642b3247136ff12FA10', 11456036658510013, {'from':accounts[0]})
-        tx = bzx.liquidateTarget('0x6B175474E89094C44Da98b954EedeAC495271d0F','0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','0x12d8bBbc8C5AC5675d29694def3497ef83615F45',9814, {'from':accounts[0]})
-
 
         tx.info()
 
