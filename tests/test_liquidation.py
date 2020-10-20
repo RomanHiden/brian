@@ -12,16 +12,22 @@ def test_liquidation():
         for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): bzx.swapEtherToToken(token, accounts[0], {'from':accounts[0], 'value':1000000000000000000})
 
         # check token balances in accounts[0]
-        for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.name(), token.balanceOf(accounts[0])
+        # for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.name(), token.balanceOf(accounts[0])
 
         # send tokens to my contract
         for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.transfer(bzx, token.balanceOf(accounts[0]), {'from':accounts[0]})
 
         # check token balances in my contract
-        for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.name(), token.balanceOf(bzx)
+        # for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.name(), token.balanceOf(bzx)
 
+        # check the user and reserve data in the aave smart contract
+        # usrctdata = aave.getUserAccountData('0xd1F560e0CdB488CD0F646642b3247136ff12FA10')
+        # usrrvdata1 = aave.getUserReserveData("0x6B175474E89094C44Da98b954EedeAC495271d0F", "0xd1F560e0CdB488CD0F646642b3247136ff12FA10")
+        # usrrvdata2 = aave.getUserReserveData("0x514910771AF9Ca656af840dff83E8264EcF986CA", "0xd1F560e0CdB488CD0F646642b3247136ff12FA10")
 
-        tx = bzx.liquidateTarget('0x6B175474E89094C44Da98b954EedeAC495271d0F','0x514910771AF9Ca656af840dff83E8264EcF986CA','0xd1F560e0CdB488CD0F646642b3247136ff12FA10', 114, {'from':accounts[0]})
+        tx = bzx.liquidateTarget('0x6B175474E89094C44Da98b954EedeAC495271d0F','0x514910771AF9Ca656af840dff83E8264EcF986CA','0xd1F560e0CdB488CD0F646642b3247136ff12FA10', 11456036658510013, {'from':accounts[0]})
+        tx = bzx.liquidateTarget('0x6B175474E89094C44Da98b954EedeAC495271d0F','0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599','0x12d8bBbc8C5AC5675d29694def3497ef83615F45',9814, {'from':accounts[0]})
+
 
         tx.info()
 
