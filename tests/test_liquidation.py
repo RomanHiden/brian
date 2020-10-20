@@ -20,14 +20,20 @@ def test_liquidation():
 
         # swap eth for each of the tokens needed for liquidation
         # for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): bzx.swapEtherToToken(token, accounts[0], {'from':accounts[0], 'value':1000000000000000000})
-        for token in (link, dai): bzx.swapEtherToToken(token, accounts[0], {'from':accounts[0], 'value':1000000000000000000})
+        #for token in (link, dai): 
+
+        bzx.swapEtherToToken(link, accounts[0], {'from':accounts[0], 'value':1000000000000000000})
+        bzx.swapEtherToToken(dai, accounts[0], {'from':accounts[0], 'value':1000000000000000000})
 
         # check token balances in accounts[0]
         # for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.name(), token.balanceOf(accounts[0])
 
         # send tokens to my contract
         # for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): token.transfer(bzx, token.balanceOf(accounts[0]), {'from':accounts[0]})
-        for token in (link, dai): token.transfer(bzx, token.balanceOf(accounts[0]), {'from':accounts[0]})
+        #for token in (link, dai):
+
+        token.transfer(link, token.balanceOf(accounts[0]), {'from':accounts[0]})
+        token.transfer(dai, token.balanceOf(accounts[0]), {'from':accounts[0]})
 
         # approvals for testing aave
         # for token in (bat, lend, link, yfi, tusd, wbtc, dai, usdc): (token.approve(aave, 100000000000000000000000000000000000,{'from':accounts[0]}), token.approve(aavelpc, 100000000000000000000000000000000000,{'from':accounts[0]}))
