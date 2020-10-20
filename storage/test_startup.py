@@ -41,7 +41,7 @@ def test_liquidation():
 	bzx.swapEtherToToken(lend, accounts[0], {'from':accounts[0], 'value':20000000000000000000})
 	lend.balanceOf(accounts[0])
 
-	(lend.approve(aave, 100000000000000000000000000000000000,{'from':accounts[0]}),lendlpc.approve(aave, 100000000000000000000000000000000000,{'from':accounts[0]}))
+	(lend.approve(aave, 100000000000000000000000000000000000,{'from':accounts[0]}),link.approve(aavelpc, 100000000000000000000000000000000000,{'from':accounts[0]}))
 
 	aave.liquidationCall("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03", "0x0188dfac3d412333eddcb98305fa40538f9df472", 117924687811759918, True, {'from':accounts[0]})
 	tx = aave.liquidationCall(link, lend", "0x7f3a19729165Ce5Bc7E902E18C7f85Dd83D84D00", 2872, True, {'from':accounts[0]})

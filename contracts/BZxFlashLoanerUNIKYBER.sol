@@ -255,7 +255,6 @@ contract BZxFlashLoanerUNIKYBER is Ownable {
         return bytes("1");
     }
 
-
     function priceCheck(address srcToken, address dstToken, uint256 amount) public returns (string memory success) {
         uint256 kyberRate;
         (, kyberRate) = KYBER_PROXY.getExpectedRate(IERC20(srcToken), IERC20(dstToken), amount);
